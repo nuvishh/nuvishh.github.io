@@ -1,2 +1,2 @@
-# nuvish.github.io
+# nuvishh.github.io
 My GitHub Profile 
