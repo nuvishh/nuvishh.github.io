@@ -404,10 +404,29 @@
     .contact .button.primary { background: #061512; color: #eff8f4; border-color: #061512; }
     .contact .button::before { background: var(--lime); }
     .contact .button:hover { color: #061512; box-shadow: 6px 6px 0 rgba(255,255,255,.7); }
+    .social-links { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+    .social-link {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 0 4px;
+      border-top: 1px solid rgba(6,21,18,.35);
+      border-bottom: 1px solid rgba(6,21,18,.35);
+      color: #061512;
+      text-decoration: none;
+      font: 600 13px/1.2 "IBM Plex Mono", monospace;
+      transition: padding .22s ease, background .22s ease;
+    }
+    .social-link svg { width: 18px; height: 18px; flex: none; }
+    .social-link:hover { padding-inline: 10px; background: rgba(255,255,255,.18); }
 
     footer { background: var(--dark); color: var(--on-dark); }
     .footer-inner { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--on-dark-muted); font-size: 13px; }
+    .footer-links { display: flex; align-items: center; gap: 18px; }
     .footer-inner a { color: var(--on-dark); text-decoration: none; }
+    .footer-inner a:hover { color: #58d7df; }
 
     .reveal { opacity: 1; transform: translateY(34px); transition: transform .8s cubic-bezier(.18,.8,.2,1); }
     .reveal[data-reveal="left"] { transform: translateX(-42px); }
@@ -502,6 +521,7 @@
         <a href="#work">Work</a>
         <a href="#experience">Experience</a>
         <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
     </header>
   </div>
@@ -671,11 +691,11 @@
       </div>
     </section>
 
-    <section class="contact" aria-labelledby="contact-title">
+    <section class="contact" id="contact" aria-labelledby="contact-title">
       <div class="wrap contact-grid reveal">
         <div>
           <h2 id="contact-title">Have a product in mind?</h2>
-          <p>If you’re hiring for a mobile product team or want to talk through a Flutter project, my CV has the full overview.</p>
+          <p>If you’re hiring for a mobile product team or want to talk through a Flutter project, my CV has the full overview. You can also follow my work and reach out through the links here.</p>
         </div>
         <div class="contact-actions">
           <a class="button primary" href="#" data-cv="1" download="Vishnu-N-Resume.pdf">Download CV
@@ -684,6 +704,14 @@
           <a class="button" href="mailto:vishnunandhoth04@gmail.com">Email me
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg>
           </a>
+          <div class="social-links" aria-label="Social profiles">
+            <a class="social-link" href="https://github.com/nuvishh" target="_blank" rel="noopener noreferrer"><span>GitHub</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+            <a class="social-link" href="https://x.com/nuvishh" target="_blank" rel="noopener noreferrer"><span>X / Twitter</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -692,7 +720,11 @@
   <footer>
     <div class="wrap footer-inner">
       <span>Vishnu N · Flutter Developer</span>
-      <a href="#main">Back to top ↑</a>
+      <div class="footer-links">
+        <a href="https://github.com/nuvishh" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/nuvishh" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="#main">Back to top ↑</a>
+      </div>
     </div>
   </footer>
 
