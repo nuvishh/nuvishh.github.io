@@ -286,6 +286,11 @@
     .section-title { max-width: 760px; margin-bottom: 18px; font-size: clamp(42px, 5.5vw, 72px); line-height: .98; letter-spacing: -.058em; }
     .section-lead { max-width: 650px; margin: 0; color: var(--muted); font-size: 18px; }
 
+    .filter-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 34px 0 26px; }
+    .filter-btn { appearance: none; cursor: pointer; padding: 11px 18px; border: 1px solid var(--line-strong); border-radius: 999px; background: transparent; color: var(--muted); font: 500 12px/1 "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; transition: background .25s, color .25s, border-color .25s, transform .25s; }
+    .filter-btn:hover { color: var(--ink); border-color: var(--ink); transform: translateY(-1px); }
+    .filter-btn.is-active { background: var(--dark); border-color: var(--dark); color: var(--on-dark); }
+    .filter-btn .count { opacity: .6; margin-left: 6px; }
     .projects { display: grid; gap: 34px; }
     .project {
       position: relative;
@@ -1197,8 +1202,15 @@
           </div>
         </div>
 
+        <div class="filter-tabs reveal" role="group" aria-label="Filter projects by category">
+          <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All <span class="count">12</span></button>
+          <button type="button" class="filter-btn" data-filter="flutter" aria-pressed="false">Flutter <span class="count">4</span></button>
+          <button type="button" class="filter-btn" data-filter="tools" aria-pressed="false">Tools <span class="count">7</span></button>
+          <button type="button" class="filter-btn" data-filter="ai" aria-pressed="false">AI <span class="count">1</span></button>
+        </div>
+
         <div class="projects">
-          <article class="project reveal">
+          <article class="project reveal" data-category="flutter">
             <div class="project-copy">
               <div class="project-number">PROJECT / 01</div>
               <h3>CampusMan</h3>
@@ -1224,7 +1236,7 @@
             </div>
           </article>
 
-          <article class="project reveal">
+          <article class="project reveal" data-category="flutter">
             <div class="project-copy">
               <div class="project-number">PROJECT / 02</div>
               <h3>aptcare</h3>
@@ -1250,7 +1262,7 @@
             </div>
           </article>
 
-          <article class="project reveal">
+          <article class="project reveal" data-category="tools">
             <div class="project-copy">
               <div class="project-number">PROJECT / 03</div>
               <h3>MailPulse</h3>
@@ -1276,7 +1288,7 @@
             </div>
           </article>
 
-          <article class="project reveal">
+          <article class="project reveal" data-category="flutter">
             <div class="project-copy">
               <div class="project-number">PROJECT / 04</div>
               <h3>Beamo</h3>
@@ -1297,7 +1309,7 @@
             </div>
           </article>
 
-          <article class="project reveal">
+          <article class="project reveal" data-category="flutter">
             <div class="project-copy">
               <div class="project-number">PROJECT / 05</div>
               <h3>Duezy</h3>
@@ -1327,7 +1339,7 @@
             </div>
           </article>
 
-          <article class="project reveal">
+          <article class="project reveal" data-category="tools">
             <div class="project-copy">
               <div class="project-number">PROJECT / 06</div>
               <h3>Pingman</h3>
@@ -1358,7 +1370,7 @@
             </div>
           </article>
 
-          <article class="project reveal">
+          <article class="project reveal" data-category="tools">
             <div class="project-copy">
               <div class="project-number">PROJECT / 07</div>
               <h3>Beamo Web</h3>
@@ -1398,7 +1410,7 @@
               <div class="stage-label two">NO SERVER &middot; OFFLINE</div>
             </div>
           </article>
-          <article class="project reveal">
+          <article class="project reveal" data-category="tools">
             <div class="project-copy">
               <div class="project-number">PROJECT / 08</div>
               <h3>LinkGrid</h3>
@@ -1429,7 +1441,7 @@
               <div class="stage-label two">100% OFFLINE</div>
             </div>
           </article>
-          <article class="project reveal">
+          <article class="project reveal" data-category="tools">
             <div class="project-copy">
               <div class="project-number">PROJECT / 09</div>
               <h3>SlimByte</h3>
@@ -1459,7 +1471,7 @@
               <div class="stage-label two">100% OFFLINE</div>
             </div>
           </article>
-          <article class="project reveal">
+          <article class="project reveal" data-category="tools">
             <div class="project-copy">
               <div class="project-number">PROJECT / 10</div>
               <h3>InstaKit</h3>
@@ -1492,7 +1504,7 @@
               <div class="stage-label two">ZIP &rarr; INSTANT ANSWERS</div>
             </div>
           </article>
-          <article class="project reveal">
+          <article class="project reveal" data-category="tools">
             <div class="project-copy">
               <div class="project-number">PROJECT / 11</div>
               <h3>SentAPI</h3>
@@ -1524,7 +1536,7 @@
               <div class="stage-label two">BATCH &middot; TRANSLITERATE</div>
             </div>
           </article>
-          <article class="project reveal">
+          <article class="project reveal" data-category="ai">
             <div class="project-copy">
               <div class="project-number">PROJECT / 12</div>
               <h3>Synvora</h3>
@@ -1769,6 +1781,23 @@
           scene.style.setProperty('--rx', '-5deg');
         });
       }
+      var filterButtons = Array.prototype.slice.call(document.querySelectorAll('.filter-btn'));
+      var projectCards = Array.prototype.slice.call(document.querySelectorAll('.project'));
+      filterButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          var filter = button.getAttribute('data-filter');
+          filterButtons.forEach(function (btn) {
+            var active = btn === button;
+            btn.classList.toggle('is-active', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+          });
+          projectCards.forEach(function (card) {
+            var show = filter === 'all' || card.getAttribute('data-category') === filter;
+            card.style.display = show ? '' : 'none';
+          });
+        });
+      });
+
     })();
   </script>
   <script>
